@@ -1,0 +1,3 @@
+{
+    "mongoURI" : "mongodb+srv://wafer:wafer123@Projects.ic4pv.mongodb.net/Projects?retryWrites=true&w=majority"
+}

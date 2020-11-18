@@ -1,0 +1,23 @@
+{
+  "name": "shifrigovna",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Project.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "git": "^0.1.5",
+    "github": "^14.0.0",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.15",
+    "nodemon": "^2.0.6"
+  }
+}
