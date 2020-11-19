@@ -4,17 +4,19 @@ const {check, validationResult} = require('express-validator');
 
 const Project = require('../Project');
 
-router.post ('/', [
-    check('projectName', 'Введите название проекта').not().isEmpty(),
-    check('date', 'Введите дату').isDate(),
-], 
+router.post ('/',
+    check('projectName', 'Введите название проекта').not().isEmpty(), 
     async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
     };
 
-    const { projectName, date } = req.body;
+    let { projectName, date } = req.body;
+
+    if(!date){
+        date = new Date().getFullYear();
+    }
 
     try{
         let project = await Project.findOne({projectName});
@@ -42,6 +44,25 @@ router.post ('/', [
             crypt
         };
 
+        // let myPromise = new Promise(function(myResolve, myReject) {  
+          // The producing code (this may take some time)
+          
+        //     if (!Project.findOne({crypt})) {
+        //       myResolve();
+        //     } else {
+        //       myReject(crypt);
+        //     }
+        //   });
+          
+        //   myPromise.then(
+        // //     function(value) {},
+        //     (error) => {myPromise}
+        //   );
+
+
+        // do{crypt}while(Project.findOne({crypt}))
+        // while(Project.findOne({crypt})){crypt};
+
         project = new Project({
             crypt,
             projectName,
@@ -49,6 +70,7 @@ router.post ('/', [
         });
         
         await project.save();
+        console.log(`Проект ${crypt} добавлен`)
 
         return res.status(200).send(`Проект ${crypt} добавлен`);
 

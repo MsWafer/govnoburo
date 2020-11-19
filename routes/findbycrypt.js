@@ -1,5 +1,4 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
 const router = express.Router();
 
 
@@ -8,7 +7,7 @@ const Project = require('../Project');
 //find all
 router.get('/',async (req,res) => {
     try {
-        const projects = await Project.find();
+        const projects = await Project.find().select('-_id -__v');
         res.json(projects);
         
     } catch (err) {
@@ -19,12 +18,12 @@ router.get('/',async (req,res) => {
     
 });
 //find by crypt
-router.post('/crypt', async(req,res) => {
+router.post('/', async(req,res) => {
     try {
         const project = await Project.findOne({crypt: req.body.crypt});
-
+        
         if(!project) return res.status(400).json({msg: "Проект не найден"});
-        res.json(project);
+        res.json(`${project.date}-${project.crypt}-${project.projectName}`);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('server error')

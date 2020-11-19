@@ -9,9 +9,9 @@ const ProjectSchema = new mongoose.Schema({
         required: true
     },
     date: {
-        type: Date,
-        required : true,
-    },
+        type: Number,
+        required : true
+    }
 });
 
 module.exports = Project = mongoose.model('project', ProjectSchema);
