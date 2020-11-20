@@ -17,29 +17,60 @@ router.get('/',async (req,res) => {
 
     
 });
-//find by crypt
-router.post('/', async(req,res) => {
+//find by crypt/title
+router.get('/:auth', async(req,res) => {
     try {
-        const project = await Project.findOne({crypt: req.body.crypt});
-        
-        if(!project) return res.status(400).json({msg: "Проект не найден"});
-        res.json(`${project.date}-${project.crypt}-${project.projectName}`);
+        let project = await Project.findOne({crypt: req.params.auth});
+        let projectTitle = await Project.findOne({title: req.params.auth})
+
+        if(!project && !projectTitle) {
+            return res.status(400).json({msg: "Проект не найден"})
+        } else if (!projectTitle) {
+            res.json({
+                title:`Имя проекта:${project.title}`,
+                crypt: `Шифр проекта:${project.crypt}`,
+                date: `Дата:${project.date}`});
+        } else if (!project) {
+            res.json({
+                title:`Имя проекта:${projectTitle.title}`,
+                crypt: `Шифр проекта:${projectTitle.crypt}`,
+                date: `Дата:${projectTitle.date}`});
+        }
     } catch (err) {
         console.error(err.message);
         res.status(500).send('server error')
     }
 });
-
 //delete
-router.delete('/',async(req,res) => {
+router.delete('/:crypt',async(req,res) => {
     try {
-        await Project.findOneAndRemove({crypt: req.body.crypt});
-        res.json({msg:`Проект ${crypt} удален`});
+        const project = await Project.findOne({crypt: req.params.crypt});
+        if(!project) {
+            return res.status(404).json('Проект не найден')
+        };
+        await project.remove();
+        res.json({msg:`Проект удален`});
     }catch(err) {
         console.error(err.message);
         res.status(500).send('server error');
     };
 });
 
+//edit
+router.put("/:crypt", async (req, res) => {
+
+    const newTitle = req.body.title;
+    const newDate = req.body.date;
+    try {
+        const project = await Project.findOneAndUpdate({crypt: req.params.crypt}, {$set: {title:newTitle, date:newDate}})
+        res.json({
+            title:`Имя проекта:${project.title}`,
+            crypt: `Шифр проекта:${project.crypt}`,
+            date: `Дата:${project.date}`});
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error')
+    }
+});
 
 module.exports = router;

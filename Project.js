@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
     crypt: {
-        type: Number
+        type: String
     },
-    projectName: {
+    title: {
         type: String,
         required: true
     },
