@@ -21,20 +21,19 @@ router.get('/',async (req,res) => {
 router.get('/:auth', async(req,res) => {
     try {
         let project = await Project.findOne({crypt: req.params.auth});
-        let projectTitle = await Project.findOne({title: req.params.auth})
+        let projectTitle = await Project.find({title: req.params.auth}).select('-_id -__v');
 
         if(!project && !projectTitle) {
             return res.status(400).json({msg: "Проект не найден"})
-        } else if (!projectTitle) {
+        } else if (project) {
             res.json({
                 title:`Имя проекта:${project.title}`,
                 crypt: `Шифр проекта:${project.crypt}`,
-                date: `Дата:${project.date}`});
-        } else if (!project) {
-            res.json({
-                title:`Имя проекта:${projectTitle.title}`,
-                crypt: `Шифр проекта:${projectTitle.crypt}`,
-                date: `Дата:${projectTitle.date}`});
+                date: `Дата:${project.date}`,
+                city: `Город:${project.city}`    
+            });
+        } else if (projectTitle) {
+            res.json(projectTitle);
         }
     } catch (err) {
         console.error(err.message);

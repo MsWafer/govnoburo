@@ -5,14 +5,15 @@ const {check, validationResult} = require('express-validator');
 const Project = require('../Project');
 
 router.post ('/',
-    check('title', 'Введите название проекта').not().isEmpty(), 
+    check('title', 'Введите название проекта').not().isEmpty(),
+    check('city', 'Введите город').not().isEmpty(), 
     async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
     };
 
-    let { title, date } = req.body;
+    let { title, date, city } = req.body;
 
     if(!date){
         date = new Date().getFullYear();
@@ -42,7 +43,8 @@ router.post ('/',
         project = new Project({
             crypt,
             title,
-            date
+            date,
+            city
         });
         
         await project.save();

@@ -11,6 +11,10 @@ const ProjectSchema = new mongoose.Schema({
     date: {
         type: Number,
         required : true
+    },
+    city: {
+        type: String,
+        required : true
     }
 });
 

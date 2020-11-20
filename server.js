@@ -10,7 +10,8 @@ app.use(express.json({extended: false}));
 app.get('/', (req,res) => res.send('Running in the 90s'));
 
 app.use('/', require('./routes/addProject'));
-app.use('/projects', require('./routes/findbycrypt'));
+app.use('/projects', require('./routes/find'));
+app.use('/city', require('./routes/findbycity'));
 
 
 
