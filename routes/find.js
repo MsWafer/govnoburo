@@ -60,12 +60,15 @@ router.put("/:crypt", async (req, res) => {
 
     const newTitle = req.body.title;
     const newDate = req.body.date;
+    const newCity = req.body.city;
     try {
-        const project = await Project.findOneAndUpdate({crypt: req.params.crypt}, {$set: {title:newTitle, date:newDate}})
+        const project = await Project.findOneAndUpdate({crypt: req.params.crypt}, {$set: {title:newTitle, date:newDate, city:newCity}})
         res.json({
-            title:`Имя проекта:${project.title}`,
-            crypt: `Шифр проекта:${project.crypt}`,
-            date: `Дата:${project.date}`});
+                title:`Имя проекта:${project.title}`,
+                crypt: `Шифр проекта:${project.crypt}`,
+                date: `Дата:${project.date}`,
+                city: `Город:${project.city}`
+            });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error')
