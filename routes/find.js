@@ -24,7 +24,7 @@ router.get('/',async (req,res) => {
 router.get('/:auth', async(req,res) => {
     try {
         let project = await Project.findOne({crypt: req.params.auth});
-        let projectTitle = await Project.find({title: req.params.auth}).select('-_id -__v');
+        let projectTitle = await Project.find({title: req.params.auth});
 
         if(!project && !projectTitle) {
             return res.status(400).json({msg: "Проект не найден"})
@@ -36,7 +36,9 @@ router.get('/:auth', async(req,res) => {
                 city: `Город:${project.city}`    
             });
         } else if (projectTitle) {
-            res.json(projectTitle);
+            let arr2 =[];
+            projectTitle.map(project => arr2.push(`${project.date}-${project.crypt}-${project.title}`))
+            res.json(arr2);
         }
     } catch (err) {
         console.error(err.message);
