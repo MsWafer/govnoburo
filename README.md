@@ -18,4 +18,4 @@ ENDPOINTS :rofl:
             date: `Дата:${project.date}`,
             city: `Город:${project.city}`
             ```
-- **GET /city/:auth** :cowboy_hat_face: - респонс со всеми проектами с городом, указанным в auth
+- **GET /city/:auth** :cowboy_hat_face: - респонс со всеми проектами в городе, указанном в auth
