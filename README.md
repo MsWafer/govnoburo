@@ -1,4 +1,6 @@
-POST / - добавить новый проект, указав title и date в body, в респонсе `${date}-${crypt}-${title}`
+ENDPOINTS
+--------------------
+POST / - добавить новый проект, указав title, date, city в body, в респонсе `${date}-${crypt}-${title}`
 GET /projects - получить список всех проектов, респонс WiP
 GET /projects/:auth - найти проект по auth, где auth это crypt или title проекта, указанные в хедере, в респонсе выдает 
             title:`Имя проекта:${project.title}`,
