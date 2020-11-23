@@ -1,1 +1,3 @@
 node_modules
+mongodb://mongo_projectserver:27017/Projects
+mongodb://127.0.0.1:27017/Projects

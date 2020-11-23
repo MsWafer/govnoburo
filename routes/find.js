@@ -7,8 +7,11 @@ const Project = require('../Project');
 //find all
 router.get('/',async (req,res) => {
     try {
-        const projects = await Project.find().select('-_id -__v');
-        res.json(projects);
+        let arr =[];
+        let projects = await Project.find();
+        await projects.map(project => arr.push(`${project.date}-${project.crypt}-${project.title}`))
+        
+        res.send(arr)
         
     } catch (err) {
         console.error(err.message);
