@@ -13,4 +13,11 @@ services:
     restart: always
     image: mongo
     ports: 
-      - '27017:27017'
+     - '27017:27017'
+    volumes:
+     - db-data:/data/db
+     - mongo-config:/data/configdb
+
+volumes:
+  db-data: 
+  mongo-config:
