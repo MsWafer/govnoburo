@@ -10,8 +10,8 @@ ENDPOINTS :rofl:
             city: `Город:${project.city}`
             ```
              если указан crypt, или все проекты с указанным title, если искали через него
-- **DELETE /projects/:crypt** :stuck_out_tongue_winking_eye: - удалить проект, указав его crypt в хедере. респонс - проект удален
-- **PUT /projects/:crypt** :grimacing: - изменить title и date проекта, указав его crypt в хедере и новые значения в body. респонс - 
+- **DELETE /projects/:crypt** :grimacing: - удалить проект, указав его crypt в хедере. респонс - проект удален
+- **PUT /projects/:crypt** :stuck_out_tongue_winking_eye: - изменить title и date проекта, указав его crypt в хедере и новые значения в body. респонс - 
            ``` 
             title:`Имя проекта:${project.title}`,
             crypt: `Шифр проекта:${project.crypt}`,
