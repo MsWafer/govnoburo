@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: projectserver2
+    container_name: projectserver
     restart: always
     build: .
     ports:
@@ -9,7 +9,7 @@ services:
     depends_on:
       - 'mongo'
   mongo:
-    container_name: mongo_projectserver2
+    container_name: mongo_projectserver
     restart: always
     image: mongo
     ports: 

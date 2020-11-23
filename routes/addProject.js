@@ -6,7 +6,8 @@ const Project = require('../Project');
 
 router.post ('/',
     check('title', 'Введите название проекта').not().isEmpty(),
-    check('city', 'Введите город').not().isEmpty(), 
+    check('date', 'Введите год').isNumeric(),
+    check('city', 'Введите город').not().isEmpty(),
     async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -15,9 +16,9 @@ router.post ('/',
 
     let { title, date, city } = req.body;
 
-    if(!date){
-        date = new Date().getFullYear();
-    }
+    //   if(!date || typeof date !== 'number'){
+    //     date = new Date().getFullYear();
+    // }
 
     try{
         function getRndInteger(min, max) {
