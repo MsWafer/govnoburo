@@ -10,9 +10,11 @@ router.get('/',async (req,res) => {
         let arr =[];
         let projects = await Project.find();
         await projects.map(project => arr.push(`${project.date}-${project.crypt}-${project.title}`))
-        
-        res.send(arr)
-        
+        if(arr.length==0){
+            res.json({msg:'Не найдено проектов'})
+        }else{
+        res.json(arr);
+        }
     } catch (err) {
         console.error(err.message);
         res.status(500).send('server error');
@@ -38,7 +40,11 @@ router.get('/:auth', async(req,res) => {
         } else if (projectTitle) {
             let arr2 =[];
             projectTitle.map(project => arr2.push(`${project.date}-${project.crypt}-${project.title}`))
+            if(arr2.length==0){
+                res.json({msg:'Указанный проект не найден'})
+            }else{
             res.json(arr2);
+            }
         }
     } catch (err) {
         console.error(err.message);

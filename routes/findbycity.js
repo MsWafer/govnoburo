@@ -10,8 +10,11 @@ router.get('/:auth',async (req,res) => {
         let projects = await Project.find({city: req.params.auth});
         let arr =[];
         await projects.map(project => arr.push(`${project.date}-${project.crypt}-${project.title}`))
+        if(arr.length==0){
+            res.json({msg:'Не найдено проектов в указанном городе'})
+        }else{
         res.json(arr);
-        
+        }
     } catch (err) {
         console.error(err.message);
         res.status(500).send('server error');
